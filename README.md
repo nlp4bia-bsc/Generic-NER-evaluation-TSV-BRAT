@@ -39,10 +39,16 @@ Both files must follow the same structure, as shown below:
    python main.py --gold_standard <gold_standard.tsv> --predictions <predictions.tsv> [--entities ENTITY1 ENTITY2 ...]
    ```
 
-   Example:
+   Example with Entities filter:
    ```bash 
-   python main.py --gold_standard ./example_data/ner-groundtruth.tsv --predictions ./example_data/ner-prediction.tsv
+   python main.py --gold_standard ./example_data/ner-groundtruth.tsv --predictions ./example_data/ner-prediction.tsv --entities enfermedad procedure 
    ```
+
+   Example without entities filter:
+   ```bash 
+   python main.py --gold_standard ./example_data/ner-groundtruth.tsv --predictions ./example_data/ner-prediction.tsv 
+   ```
+
 
 Replace `<gold_standard.tsv>` and `<predictions.tsv>` with the paths to your input files.
 
