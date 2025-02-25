@@ -8,15 +8,15 @@ logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
 # Constants
-# START_SPAN_TAG = "start_span"
-# END_SPAN_TAG = "end_span"
-# ENTITY_NAME_TAG = "text"
-# LABEL_TAG = "label"
-
-START_SPAN_TAG = "off0"
-END_SPAN_TAG = "off1"
-ENTITY_NAME_TAG = "span"
+START_SPAN_TAG = "start_span"
+END_SPAN_TAG = "end_span"
+ENTITY_NAME_TAG = "text"
 LABEL_TAG = "label"
+
+# START_SPAN_TAG = "off0"
+# END_SPAN_TAG = "off1"
+# ENTITY_NAME_TAG = "span"
+# LABEL_TAG = "label"
 
 
 def parse_tsv_file(datapath: str, entities_to_evaluate: list) -> pd.DataFrame:
