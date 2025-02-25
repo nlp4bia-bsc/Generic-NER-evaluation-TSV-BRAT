@@ -8,13 +8,18 @@ logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
 # Constants
-START_SPAN_TAG = "start_span"
-END_SPAN_TAG = "end_span"
-ENTITY_NAME_TAG = "text"
+# START_SPAN_TAG = "start_span"
+# END_SPAN_TAG = "end_span"
+# ENTITY_NAME_TAG = "text"
+# LABEL_TAG = "label"
+
+START_SPAN_TAG = "off0"
+END_SPAN_TAG = "off1"
+ENTITY_NAME_TAG = "span"
 LABEL_TAG = "label"
 
 
-def parse_tsv_file(datapath: str) -> pd.DataFrame:
+def parse_tsv_file(datapath: str, entities_to_evaluate: list) -> pd.DataFrame:
     """
     Parse a TSV file into a DataFrame and perform basic formatting and deduplication.
 
@@ -22,6 +27,8 @@ def parse_tsv_file(datapath: str) -> pd.DataFrame:
     -----------
     datapath : str
         Path to the TSV file.
+    entities_to_evaluate: list
+        List of entities to evaluate. If none, take all entities
 
     Returns:
     --------
@@ -31,6 +38,9 @@ def parse_tsv_file(datapath: str) -> pd.DataFrame:
     try:
         # Load the TSV file
         df = pd.read_csv(datapath, sep='\t', header=0, quoting=csv.QUOTE_NONE, keep_default_na=False, dtype=str)
+
+        if entities_to_evaluate:
+            df = df.loc[df['label'].isin(entities_to_evaluate), :].copy()
 
         # Format DataFrame
         df['offset'] = df[START_SPAN_TAG].astype(str) + ' ' + df[END_SPAN_TAG].astype(str)
@@ -79,7 +89,7 @@ def calculate_metrics(gs: pd.DataFrame, pred: pd.DataFrame) -> Tuple[
     R = TP / GS_Pos if GS_Pos > 0 else 0
     F1 = (2 * P * R) / (P + R) if (P + R) > 0 else 0
 
-    return P_per_cc, P, R_per_cc, R, F1_per_cc, F1
+    return P_per_cc, round(P,4), R_per_cc, round(R,4), F1_per_cc, round(F1,4)
 
 
 def calculate_positives(gs: pd.DataFrame, pred: pd.DataFrame) -> Tuple[pd.Series, int, pd.Series, int, pd.Series, int]:

@@ -36,7 +36,7 @@ Both files must follow the same structure, as shown below:
 1. Place your gold standard TSV file and predicted TSV file in the same directory as `main.py`.
 2. Run the script using the following command:
    ```bash
-   python main.py --gold_standard <gold_standard.tsv> --predictions <predictions.tsv>
+   python main.py --gold_standard <gold_standard.tsv> --predictions <predictions.tsv> [--entities ENTITY1 ENTITY2 ...]
    ```
 
    Example:
@@ -45,6 +45,8 @@ Both files must follow the same structure, as shown below:
    ```
 
 Replace `<gold_standard.tsv>` and `<predictions.tsv>` with the paths to your input files.
+
+Use the optional `--entities` argument to specify a list of entities to evaluate. If not provided, all entities will be evaluated.
 
 3. The script will output the following metrics:
    - **Precision (P)**: Micro-average precision.
